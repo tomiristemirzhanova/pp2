@@ -11,4 +11,3 @@ class Student(Person):
     super().__init__(fname, lname)
 
 x = Student("Mike", "Olsen")
-x.printname()
