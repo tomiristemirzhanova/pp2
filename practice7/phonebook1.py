@@ -6,7 +6,6 @@ from config1 import load_config
 def get_connection():
     config = load_config()
     conn = psycopg2.connect(**config)
-    conn.set_client_encoding('UTF8')
     return conn
 
 
@@ -72,16 +71,13 @@ def show_all_contacts():
         with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT id, name, phone FROM phonebook ORDER BY id;")
-                for row in cur:
-                    print(row)
                 rows = cur.fetchall()
-
                 if rows:
                     print("\nContacts:")
                     for row in rows:
                         print(row)
-                else:
-                    print("No contacts found.")
+                    else:
+                        print("No contacts found.")
     except Exception as error:
         print("Show contacts error:", error)
 
@@ -122,6 +118,8 @@ def search_by_phone_prefix():
 
                 if rows:
                     print("\nSearch results:")
+                    for row in rows:
+                        print(row)
                     
                 else:
                     print("No matching contacts found.")
